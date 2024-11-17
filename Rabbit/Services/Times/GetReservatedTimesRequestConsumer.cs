@@ -1,9 +1,9 @@
 ﻿using MassTransit;
-using UrFUCoworkingsMicroservice.Business_Logic;
-using UrFUCoworkingsMicroservice.Models.Requests.Times;
-using UrFUCoworkingsMicroservice.Models.Responses.Times;
+using UrFUCoworkingsReservationMicroservice.Business_Logic;
+using UrFUCoworkingsReservationMicroservice.Models.Requests.Times;
+using UrFUCoworkingsReservationMicroservice.Models.Responses.Times;
 
-namespace UrFUCoworkingsMicroservice.Rabbit.Services.Times
+namespace UrFUCoworkingsReservationMicroservice.Rabbit.Services.Times
 {
     public class GetReservatedTimesRequestConsumer : IConsumer<GetReservatedTimesRequest>
     {

@@ -1,7 +1,7 @@
-﻿using UrFUCoworkingsMicroservice.Data;
-using UrFUCoworkingsMicroservice.Data.Entities;
+﻿using UrFUCoworkingsReservationMicroservice.Data;
+using UrFUCoworkingsReservationMicroservice.Data.Entities;
 
-namespace UrFUCoworkingsMicroservice.Business_Logic.Services
+namespace UrFUCoworkingsReservationMicroservice.Business_Logic.Services
 {
     public class UserService
     {

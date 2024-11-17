@@ -1,21 +1,22 @@
-﻿using UrFUCoworkingsMicroservice.Data.Interfaces;
-using UrFUCoworkingsMicroservice.Data.Entities;
-using UrFUCoworkingsMicroservice.Data;
+﻿using UrFUCoworkingsReservationMicroservice.Data.Interfaces;
+using UrFUCoworkingsReservationMicroservice.Data.Entities;
+using UrFUCoworkingsReservationMicroservice.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace UrFUCoworkingsMicroservice.Data.Implementations
+namespace UrFUCoworkingsReservationMicroservice.Data.Implementations
 {
     internal class Reservations : IReservations
     {
         private readonly EFDBContext Context;
         public Reservations(EFDBContext context) => Context = context;
-        public async Task DeleteReservationAsync(Guid id)
+        public async Task DeleteReservationAsync(Reservation reservation)
         {
-            Context.Reservations.Remove(await Context.Reservations.FirstOrDefaultAsync(x => x.Id == id));
+            if (reservation != null)
+                Context.Reservations.Remove(reservation);
             await Context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Reservation>> GetAllReservationsAsync()
+        public async Task<List<Reservation>> GetAllReservationsAsync()
         {
             return await Context.Reservations.ToListAsync();
         }

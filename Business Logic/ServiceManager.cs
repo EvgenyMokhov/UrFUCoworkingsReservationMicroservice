@@ -1,7 +1,8 @@
-﻿using UrFUCoworkingsMicroservice.Business_Logic.Services;
-using UrFUCoworkingsMicroservice.BusinessLogic.Services;
+﻿using UrFUCoworkingsReservationMicroservice.Business_Logic.Services;
+using UrFUCoworkingsReservationMicroservice.BusinessLogic.Services;
+using UrFUCoworkingsReservationMicroservice.Data;
 
-namespace UrFUCoworkingsMicroservice.Business_Logic
+namespace UrFUCoworkingsReservationMicroservice.Business_Logic
 {
     public class ServiceManager
     {

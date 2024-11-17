@@ -1,4 +1,4 @@
-﻿namespace UrFUCoworkingsMicroservice.Models.Requests.Reservations
+﻿namespace UrFUCoworkingsReservationMicroservice.Models.Requests.Reservations
 {
     public class DeleteReservationRequest
     {

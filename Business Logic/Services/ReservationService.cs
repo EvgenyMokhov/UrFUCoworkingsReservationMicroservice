@@ -1,39 +1,50 @@
-﻿using UrFUCoworkingsMicroservice.Business_Logic.Services;
-using UrFUCoworkingsMicroservice.Data;
-using UrFUCoworkingsMicroservice.Data.Entities;
-using UrFUCoworkingsMicroservice.Models.DTOs;
+﻿using UrFUCoworkingsReservationMicroservice.Business_Logic.Services;
+using UrFUCoworkingsReservationMicroservice.Data;
+using UrFUCoworkingsReservationMicroservice.Data.Entities;
+using UrFUCoworkingsReservationMicroservice.Models.DTOs;
 using System.Globalization;
 
-namespace UrFUCoworkingsMicroservice.BusinessLogic.Services
+namespace UrFUCoworkingsReservationMicroservice.BusinessLogic.Services
 {
     public class ReservationService
     {
         private readonly IServiceProvider serviceProvider;
         public ReservationService(IServiceProvider provider) => serviceProvider = provider;
 
-        public async Task<List<ReservationViewModel>> GetAllReservationsAsync()
+        public async Task<List<ReservationViewModel>> GetAllReservationsAsync(User user)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
             IEnumerable<Reservation> reservations = await dataManager.Reservations.GetAllReservationsAsync();
-            return (await Task.WhenAll(reservations.Select(async reservation => await ReservationToView(reservation)))).ToList();
+            return reservations.Select(reservation => ReservationToView(reservation, user)).ToList();
         }
 
-        public async Task<ReservationViewModel> ReservationToView(Reservation reservation)
+        public ReservationViewModel ReservationToView(Reservation reservation, User user)
         {
-            using IServiceScope scope = serviceProvider.CreateScope();
-            DataManager dataManager = new(serviceProvider);
             ReservationViewModel viewModel = new ReservationViewModel();
             viewModel.ReservationBegin = reservation.ReservationBegin.ToString("g", new CultureInfo("ru-RU"));
             viewModel.ReservationEnd = reservation.ReservationEnd.ToString("g", new CultureInfo("ru-RU"));
-            viewModel.ReservatorName = (await dataManager.Users.GetUserAsync(reservation.ReservatorId)).Name;
+            viewModel.ReservatorName = user.Name;
             viewModel.Visitors = new();
             viewModel.Places = new();
-            foreach (Visit visitor in reservation.Visits)
-                viewModel.Visitors.Add(visitor.User.Name);
+            foreach (Visit visit in reservation.Visits)
+                viewModel.Visitors.Add(visit.User.Name);
             foreach (Place place in reservation.Places)
                 viewModel.Places.Add(place.Id);
             return viewModel;
+        }
+
+        public ReservationEditModel ReservationToEdit(Reservation reservation)
+        {
+            ReservationEditModel editModel = new();
+            editModel.ReservationId = reservation.Id;
+            editModel.ReservatorId = reservation.ReservatorId;
+            editModel.ReservationDay = DateOnly.FromDateTime(reservation.ReservationBegin);
+            editModel.ReservationBegin = TimeOnly.FromDateTime(reservation.ReservationBegin).ToString();
+            editModel.ReservationEnd = TimeOnly.FromDateTime(reservation.ReservationEnd).ToString();
+            editModel.PlacesIds = reservation.Places.Select(place => place.Id).ToList();
+            editModel.UserIds = reservation.Visits.Select(visit => visit.UserId).ToList();
+            return editModel;
         }
 
         public async Task<List<(TimeOnly reservationBegin, TimeOnly reservationEnd)>> GetReservatedIntervalsAsync(Guid placeId, DateOnly date)
@@ -101,12 +112,16 @@ namespace UrFUCoworkingsMicroservice.BusinessLogic.Services
 
         public async Task DeleteReservationAsync(Guid reservationId)
         {
-            
+            using IServiceScope scope = serviceProvider.CreateScope();
+            DataManager dataManager = new(serviceProvider);
+            await dataManager.Reservations.DeleteReservationAsync(await dataManager.Reservations.GetReservationAsync(reservationId));
         }
 
         public async Task<ReservationEditModel> GetReservationByIdAsync(Guid id)
         {
-            return new();
+            using IServiceScope scope = serviceProvider.CreateScope();
+            DataManager dataManager = new(serviceProvider);
+            return ReservationToEdit(await dataManager.Reservations.GetReservationAsync(id)); 
         }
     }
 }

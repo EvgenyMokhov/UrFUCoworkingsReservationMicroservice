@@ -1,6 +1,6 @@
-﻿using UrFUCoworkingsMicroservice.Models.DTOs;
+﻿using UrFUCoworkingsReservationMicroservice.Models.DTOs;
 
-namespace UrFUCoworkingsMicroservice.Models.Responses.Reservations
+namespace UrFUCoworkingsReservationMicroservice.Models.Responses.Reservations
 {
     public class GetReservationsResponse
     {

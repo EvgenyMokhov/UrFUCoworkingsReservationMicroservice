@@ -1,4 +1,4 @@
-﻿namespace UrFUCoworkingsMicroservice.Data.Entities
+﻿namespace UrFUCoworkingsReservationMicroservice.Data.Entities
 {
     public class Zone
     {

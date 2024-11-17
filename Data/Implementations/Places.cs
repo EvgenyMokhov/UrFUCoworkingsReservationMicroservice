@@ -1,18 +1,14 @@
-﻿using UrFUCoworkingsMicroservice.Data.Interfaces;
-using UrFUCoworkingsMicroservice.Data.Entities;
-using UrFUCoworkingsMicroservice.Data;
+﻿using UrFUCoworkingsReservationMicroservice.Data.Interfaces;
+using UrFUCoworkingsReservationMicroservice.Data.Entities;
+using UrFUCoworkingsReservationMicroservice.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace UrFUCoworkingsMicroservice.Data.Implementations
+namespace UrFUCoworkingsReservationMicroservice.Data.Implementations
 {
     internal class Places : IPlaces
     {
         private readonly EFDBContext Context;
         public Places(EFDBContext context) => Context = context;
-        public async Task<IEnumerable<Place>> GetAllPlacesAsync()
-        {
-            return await Context.Places.ToListAsync();
-        }
 
         public async Task<Place> GetPlaceAsync(Guid id)
         {

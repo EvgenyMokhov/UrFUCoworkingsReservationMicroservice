@@ -1,4 +1,4 @@
-﻿namespace UrFUCoworkingsMicroservice.Models.DTOs
+﻿namespace UrFUCoworkingsReservationMicroservice.Models.DTOs
 {
     public class PlaceView
     {

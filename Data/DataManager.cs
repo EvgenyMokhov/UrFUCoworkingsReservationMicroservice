@@ -1,6 +1,6 @@
-﻿using UrFUCoworkingsMicroservice.Data.Interfaces;
+﻿using UrFUCoworkingsReservationMicroservice.Data.Interfaces;
 
-namespace UrFUCoworkingsMicroservice.Data
+namespace UrFUCoworkingsReservationMicroservice.Data
 {
     public class DataManager
     {

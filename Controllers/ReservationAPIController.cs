@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UrFUCoworkingsMicroservice.Models.DTOs;
+using UrFUCoworkingsReservationMicroservice.Models.DTOs;
 
-namespace UrFUCoworkingsMicroservice.Controllers
+namespace UrFUCoworkingsReservationMicroservice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

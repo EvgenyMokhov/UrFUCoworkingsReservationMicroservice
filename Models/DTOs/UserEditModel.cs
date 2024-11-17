@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UrFUCoworkingsMicroservice.Models.DTOs
+namespace UrFUCoworkingsReservationMicroservice.Models.DTOs
 {
     public class UserEditModel
     {

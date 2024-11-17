@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrFUCoworkingsMicroservice.Data.Entities;
+using UrFUCoworkingsReservationMicroservice.Data.Entities;
 using System.Collections.Generic;
 
-namespace UrFUCoworkingsMicroservice.Data
+namespace UrFUCoworkingsReservationMicroservice.Data
 {
     public class EFDBContext : DbContext
     {

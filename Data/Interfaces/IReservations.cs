@@ -1,14 +1,14 @@
-﻿using UrFUCoworkingsMicroservice.Data.Entities;
+﻿using UrFUCoworkingsReservationMicroservice.Data.Entities;
 
-namespace UrFUCoworkingsMicroservice.Data.Interfaces
+namespace UrFUCoworkingsReservationMicroservice.Data.Interfaces
 {
     public interface IReservations
     {
-        public Task<IEnumerable<Reservation>> GetAllReservationsAsync();
+        public Task<List<Reservation>> GetAllReservationsAsync();
         public Task<Reservation> GetReservationAsync(Guid id);
         public Task UpdateReservationAsync(Reservation reservation);
         public Task CreateReservationAsync(Reservation resrvation);
-        public Task DeleteReservationAsync(Guid id);
+        public Task DeleteReservationAsync(Reservation reservation);
         public Task<IEnumerable<Reservation>> GetReservationsOnDateAsync(Guid placeId, DateOnly date);
     }
 }

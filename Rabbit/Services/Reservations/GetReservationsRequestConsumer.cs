@@ -1,9 +1,9 @@
 ﻿using MassTransit;
-using UrFUCoworkingsMicroservice.Business_Logic;
-using UrFUCoworkingsMicroservice.Models.Requests.Reservations;
-using UrFUCoworkingsMicroservice.Models.Responses.Reservations;
+using UrFUCoworkingsReservationMicroservice.Business_Logic;
+using UrFUCoworkingsReservationMicroservice.Models.Requests.Reservations;
+using UrFUCoworkingsReservationMicroservice.Models.Responses.Reservations;
 
-namespace UrFUCoworkingsMicroservice.Rabbit.Services.Reservations
+namespace UrFUCoworkingsReservationMicroservice.Rabbit.Services.Reservations
 {
     public class GetReservationsRequestConsumer : IConsumer<GetReservationsRequest>
     {
@@ -12,7 +12,7 @@ namespace UrFUCoworkingsMicroservice.Rabbit.Services.Reservations
         public async Task Consume(ConsumeContext<GetReservationsRequest> context)
         {
             GetReservationsResponse response = new();
-            response.ResponseData = await serviceManager.ReservationService.GetAllReservationsAsync();
+            response.ResponseData = await serviceManager.ReservationService.GetAllReservationsAsync(context.Message.User);
             await context.RespondAsync(response);
         }
     }

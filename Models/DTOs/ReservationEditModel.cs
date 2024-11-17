@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using UrFUCoworkingsMicroservice.Data.Entities;
+using UrFUCoworkingsReservationMicroservice.Data.Entities;
 
-namespace UrFUCoworkingsMicroservice.Models.DTOs
+namespace UrFUCoworkingsReservationMicroservice.Models.DTOs
 {
     public class ReservationEditModel
     {

@@ -1,11 +1,10 @@
-﻿using UrFUCoworkingsMicroservice.Data.Entities;
+﻿using UrFUCoworkingsReservationMicroservice.Data.Entities;
 
-namespace UrFUCoworkingsMicroservice.Data.Interfaces
+namespace UrFUCoworkingsReservationMicroservice.Data.Interfaces
 {
     public interface IUsers
     {
         public Task<IEnumerable<User>> GetFilteredUsersAsync(string filter);
         public Task<User> GetUserAsync(Guid id);
-        public Task CreateUserAsync(User user);
     }
 }

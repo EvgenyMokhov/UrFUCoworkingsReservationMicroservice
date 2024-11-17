@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace UrFUCoworkingsMicroservice.Data.Entities
+namespace UrFUCoworkingsReservationMicroservice.Data.Entities
 {
     [Index(nameof(Id))]
     [Index(nameof(UserId), nameof(ReservationId))]

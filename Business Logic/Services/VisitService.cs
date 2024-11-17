@@ -1,7 +1,7 @@
-﻿using UrFUCoworkingsMicroservice.Data;
-using UrFUCoworkingsMicroservice.Data.Entities;
+﻿using UrFUCoworkingsReservationMicroservice.Data;
+using UrFUCoworkingsReservationMicroservice.Data.Entities;
 
-namespace UrFUCoworkingsMicroservice.Business_Logic.Services
+namespace UrFUCoworkingsReservationMicroservice.Business_Logic.Services
 {
     public class VisitService
     {
@@ -25,6 +25,7 @@ namespace UrFUCoworkingsMicroservice.Business_Logic.Services
         {
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
+            await dataManager.Visits.DeleteVisitAsync(visit);
         }
 
         public async Task<List<Visit>> GetVisitsAsync(Guid reservationId)

@@ -1,4 +1,4 @@
-﻿namespace UrFUCoworkingsMicroservice.Models.Responses.Times
+﻿namespace UrFUCoworkingsReservationMicroservice.Models.Responses.Times
 {
     public class GetReservatedTimesResponse
     {

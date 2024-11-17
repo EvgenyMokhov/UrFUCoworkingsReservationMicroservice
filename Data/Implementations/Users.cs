@@ -1,8 +1,9 @@
-﻿using UrFUCoworkingsMicroservice.Data.Entities;
-using UrFUCoworkingsMicroservice.Data.Interfaces;
+﻿using UrFUCoworkingsReservationMicroservice.Data.Entities;
+using UrFUCoworkingsReservationMicroservice.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 
-namespace UrFUCoworkingsMicroservice.Data.Implementations
+namespace UrFUCoworkingsReservationMicroservice.Data.Implementations
 {
     internal class Users : IUsers
     {
@@ -10,18 +11,14 @@ namespace UrFUCoworkingsMicroservice.Data.Implementations
         public Users(EFDBContext context) => Context = context;
         public async Task<IEnumerable<User>> GetFilteredUsersAsync(string filter)
         {
-            return Context.Users;
+            if (filter == null || filter == "")
+                return await Context.Users.ToListAsync();
+            return await Context.Users.FromSqlRaw($"SELECT * FROM dbo.Users WHERE Name LIKE '@filter%'", new SqlParameter("@filter", filter)).ToListAsync();
         }
 
         public async Task<User> GetUserAsync(Guid id)
         {
             return await Context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task CreateUserAsync(User user)
-        {
-            await Context.Users.AddAsync(user);
-            await Context.SaveChangesAsync();
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace UrFUCoworkingsMicroservice.Models.Requests.Reservations
+﻿using UrFUCoworkingsReservationMicroservice.Data.Entities;
+
+namespace UrFUCoworkingsReservationMicroservice.Models.Requests.Reservations
 {
     public class GetReservationsRequest
     {
-        public Guid UserId { get; set; }
+        public User User { get; set; }
     }
 }
