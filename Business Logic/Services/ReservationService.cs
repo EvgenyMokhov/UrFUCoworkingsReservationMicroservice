@@ -40,8 +40,8 @@ namespace UrFUCoworkingsReservationMicroservice.BusinessLogic.Services
             editModel.ReservationId = reservation.Id;
             editModel.ReservatorId = reservation.ReservatorId;
             editModel.ReservationDay = DateOnly.FromDateTime(reservation.ReservationBegin);
-            editModel.ReservationBegin = TimeOnly.FromDateTime(reservation.ReservationBegin).ToString();
-            editModel.ReservationEnd = TimeOnly.FromDateTime(reservation.ReservationEnd).ToString();
+            editModel.ReservationBegin = TimeOnly.FromDateTime(reservation.ReservationBegin);
+            editModel.ReservationEnd = TimeOnly.FromDateTime(reservation.ReservationEnd);
             editModel.PlacesIds = reservation.Places.Select(place => place.Id).ToList();
             editModel.UserIds = reservation.Visits.Select(visit => visit.UserId).ToList();
             return editModel;
@@ -66,12 +66,8 @@ namespace UrFUCoworkingsReservationMicroservice.BusinessLogic.Services
             using IServiceScope scope = serviceProvider.CreateScope();
             DataManager dataManager = new(serviceProvider);
             Reservation dbReservation = await dataManager.Reservations.GetReservationAsync(reservation.ReservationId);
-            DateTime resB = new();
-            if (DateTime.TryParse(reservation.ReservationBegin, out resB))
-            { dbReservation.ReservationBegin = resB; }
-            DateTime resE = new();
-            if (DateTime.TryParse(reservation.ReservationEnd, out resE))
-            { dbReservation.ReservationEnd = resE; }
+            dbReservation.ReservationBegin = new(reservation.ReservationDay, reservation.ReservationBegin);
+            dbReservation.ReservationEnd = new(reservation.ReservationDay, reservation.ReservationEnd);
             foreach (Place place in dbReservation.Places.ToList())
                 if (!reservation.PlacesIds.Contains(place.Id))
                     dbReservation.Places.Remove(place);
@@ -99,12 +95,9 @@ namespace UrFUCoworkingsReservationMicroservice.BusinessLogic.Services
             Reservation dbReservation = new();
             dbReservation.Id = Guid.NewGuid();
             dbReservation.ReservatorId = reservation.ReservatorId;
-            DateTime resB = new();
-            if (DateTime.TryParse(reservation.ReservationBegin, out resB))
-            { dbReservation.ReservationBegin = resB; }
-            DateTime resE = new();
-            if (DateTime.TryParse(reservation.ReservationEnd, out resE))
-            { dbReservation.ReservationEnd = resE; }
+            dbReservation.ReservationBegin = new(reservation.ReservationDay, reservation.ReservationBegin);
+            dbReservation.ReservationEnd = new(reservation.ReservationDay, reservation.ReservationEnd);
+            await dataManager.Reservations.CreateReservationAsync(dbReservation);
             dbReservation.Places = (await Task.WhenAll(reservation.PlacesIds.Select(async placeId => await dataManager.Places.GetPlaceAsync(placeId)))).ToList();
             VisitService visitService = new(serviceProvider);
             dbReservation.Visits = (await Task.WhenAll(reservation.UserIds.Select(async userId => await visitService.CreateVisitAsync(userId, dbReservation.Id)))).ToList();
