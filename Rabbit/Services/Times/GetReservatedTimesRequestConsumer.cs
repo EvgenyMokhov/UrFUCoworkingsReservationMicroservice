@@ -1,7 +1,7 @@
 ﻿using MassTransit;
+using UrFUCoworkingsModels.Requests.Times;
+using UrFUCoworkingsModels.Responses.Times;
 using UrFUCoworkingsReservationMicroservice.Business_Logic;
-using UrFUCoworkingsReservationMicroservice.Models.Requests.Times;
-using UrFUCoworkingsReservationMicroservice.Models.Responses.Times;
 
 namespace UrFUCoworkingsReservationMicroservice.Rabbit.Services.Times
 {
@@ -12,7 +12,7 @@ namespace UrFUCoworkingsReservationMicroservice.Rabbit.Services.Times
         public async Task Consume(ConsumeContext<GetReservatedTimesRequest> context)
         {
             GetReservatedTimesResponse response = new();
-            response.ResponseData = await serviceManager.ReservationService.GetReservatedIntervalsAsync(context.Message.PlaceId, context.Message.Date);
+            response.ResponseData = await serviceManager.ReservationService.GetReservatedIntervalsAsync(context.Message.PlaceId, context.Message.Date, context.Message.Setting);
             await context.RespondAsync(response);
         }
     }

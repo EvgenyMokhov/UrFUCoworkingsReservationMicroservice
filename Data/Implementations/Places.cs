@@ -1,7 +1,7 @@
 ﻿using UrFUCoworkingsReservationMicroservice.Data.Interfaces;
-using UrFUCoworkingsReservationMicroservice.Data.Entities;
-using UrFUCoworkingsReservationMicroservice.Data;
 using Microsoft.EntityFrameworkCore;
+using UrFUCoworkingsModels.Data;
+using UrFUCoworkingsModels.Data.Entities;
 
 namespace UrFUCoworkingsReservationMicroservice.Data.Implementations
 {

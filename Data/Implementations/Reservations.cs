@@ -1,7 +1,7 @@
 ﻿using UrFUCoworkingsReservationMicroservice.Data.Interfaces;
-using UrFUCoworkingsReservationMicroservice.Data.Entities;
-using UrFUCoworkingsReservationMicroservice.Data;
 using Microsoft.EntityFrameworkCore;
+using UrFUCoworkingsModels.Data.Entities;
+using UrFUCoworkingsModels.Data;
 
 namespace UrFUCoworkingsReservationMicroservice.Data.Implementations
 {
@@ -19,6 +19,11 @@ namespace UrFUCoworkingsReservationMicroservice.Data.Implementations
         public async Task<List<Reservation>> GetAllReservationsAsync()
         {
             return await Context.Reservations.ToListAsync();
+        }
+
+        public async Task<List<Reservation>> GetUserReservationsAsync(Guid userId)
+        {
+            return await Context.Reservations.Where(res => res.Visits.Select(vis => vis.UserId).Contains(userId)).ToListAsync();
         }
 
         public async Task<Reservation> GetReservationAsync(Guid id)

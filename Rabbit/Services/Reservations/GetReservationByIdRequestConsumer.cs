@@ -1,7 +1,7 @@
 ﻿using MassTransit;
+using UrFUCoworkingsModels.Requests.Reservations;
+using UrFUCoworkingsModels.Responses.Reservations;
 using UrFUCoworkingsReservationMicroservice.Business_Logic;
-using UrFUCoworkingsReservationMicroservice.Models.Requests.Reservations;
-using UrFUCoworkingsReservationMicroservice.Models.Responses.Reservations;
 
 namespace UrFUCoworkingsReservationMicroservice.Rabbit.Services.Reservations
 {

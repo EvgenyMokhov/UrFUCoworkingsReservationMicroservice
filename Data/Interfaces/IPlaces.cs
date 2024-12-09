@@ -1,4 +1,4 @@
-﻿using UrFUCoworkingsReservationMicroservice.Data.Entities;
+﻿using UrFUCoworkingsModels.Data.Entities;
 
 namespace UrFUCoworkingsReservationMicroservice.Data.Interfaces
 {
